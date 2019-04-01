@@ -1,0 +1,52 @@
+---
+# os task
+
+# - name: update all packages
+#   apt:
+#     name: "*"
+#     update_cache: true
+#     state: latest
+
+- name: install acl
+  apt:
+    name: "acl"
+    update_cache: true  # remove line when * uncommented
+    state: latest
+
+- name: apt install packages for SNI verification
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - python-pip
+      - python-openssl
+      - python-pyasn1
+
+- name: pip install package for SNI verification
+  pip:
+    name: ndg-httpsclient
+    state: latest
+
+- name: add docker group
+  group:
+    name: "{{ docker_user }}"
+    gid: "{{ docker_id }}"
+
+- name: add docker users
+  user:
+    name: "{{ docker_user }}"
+    uid: "{{ docker_id }}"
+    group: "{{ docker_id }}"
+
+- name: set dockers subuid range
+  lineinfile:
+    path: /etc/subuid
+    state: present
+    line: "{{ docker_user }}:{{ docker_id }}:65536"
+
+- name: set dockers subgid range
+  lineinfile:
+    path: /etc/subgid
+    state: present
+    line: "{{ docker_user }}:{{ docker_id }}:65536"

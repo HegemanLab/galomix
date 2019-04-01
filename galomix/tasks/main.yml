@@ -1,0 +1,10 @@
+---
+# main task file for galomix
+
+- name: configure base os
+  include_tasks: os.yml
+
+- name: install docker rootless
+  include_tasks: docker-rootless.yml
+  when: docker == "rootless"
+  tags: rootless

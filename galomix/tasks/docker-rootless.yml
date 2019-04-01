@@ -1,0 +1,30 @@
+---
+
+- name: install rootless dependencies
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: true
+  vars:
+    packages:
+      - golang-go
+      - uidmap
+
+- name: download https://get.docker.com/rootless
+  get_url:
+    url: https://get.docker.com/rootless
+    dest: "/home/{{ docker_user }}/get-docker-rootless.sh"
+    owner: "{{ docker_user }}"
+    group: "{{ docker_user }}"
+    mode: 0770
+
+- name: run get-docker-rootless.sh
+  command: "sh /home/{{ docker_user }}/get-docker-rootless.sh"
+  args:
+    chdir: "/home/{{ docker_user }}/"
+  become_user: "{{ docker_user }}"
+  register: result
+
+- name: print foo
+  debug:
+    var: result

@@ -1,0 +1,21 @@
+sudo: required
+
+language: python
+python: 2.7.9
+
+env:
+  - distribution: ubuntu
+    version: xenial
+# - distribution: centos
+#   version: 7
+
+install:
+  - pip install ansible
+  - ansible-galaxy install geerlingguy.docker
+  - export FORCE_ROOTLESS_INSTALL=1 
+
+script:
+  - "ansible-playbook -i tests/inventory tests/playbook.yml --syntax-check"
+  - "ansible-playbook -i tests/inventory tests/playbook.yml --connection=local --become"
+  - ls -l /home/galomix/
+  - ls /home/galomix/bin/
