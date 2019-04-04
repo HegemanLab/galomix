@@ -2,11 +2,12 @@
 # os task
 
 # disabled for init travis testing
-# - name: update all packages
-#   apt:
-#     name: "*"
-#     update_cache: true
-#     state: latest
+- name: update all packages
+  apt:
+    name: "acl"
+    # name: "*"
+    update_cache: true
+    state: latest
 
 - name: add docker group
   group:
