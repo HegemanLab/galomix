@@ -17,5 +17,3 @@ install:
 script:
   - "ansible-playbook -i tests/inventory tests/playbook.yml --syntax-check"
   - "ansible-playbook -i tests/inventory tests/playbook.yml --connection=local --become"
-  - ls -l /home/galomix/
-  - ls /home/galomix/bin/

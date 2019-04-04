@@ -4,3 +4,28 @@
   git:
     repo: "https://github.com/bgruening/docker-galaxy-stable.git"
     dest: "/home/{{ docker_user }}/docker-galaxy-stable"
+
+- name: run build-orchestration-images.sh
+  command: "./build-orchestration-images.sh --no-push --condor --grafana --slurm --k8s"
+  args:
+    chdir: "/home/{{ docker_user }}/docker-galaxy-stable/compose"
+  become_user: "{{ docker_user }}"
+
+- name: source tags-for-compose-to-source.sh
+  command: "source ./tags-for-compose-to-source.sh"
+  args:
+    chdir: "/home/{{ docker_user }}/docker-galaxy-stable/compose"
+  become_user: "{{ docker_user }}"
+
+- name: touch .env
+  command: "touch .env"
+  args:
+    chdir: "/home/{{ docker_user }}/docker-galaxy-stable/compose"
+  become_user: "{{ docker_user }}"
+
+- name: docker-compose up -d
+  command: "docker-compose up -d"
+  args:
+    chdir: "/home/{{ docker_user }}/docker-galaxy-stable/compose"
+  become_user: "{{ docker_user }}"
+
