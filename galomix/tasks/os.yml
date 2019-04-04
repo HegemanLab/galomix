@@ -19,3 +19,4 @@
     name: "{{ docker_user }}"
     uid: "{{ docker_id }}"
     group: "{{ docker_id }}"
+    groups: docker
