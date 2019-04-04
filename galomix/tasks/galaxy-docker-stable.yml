@@ -3,20 +3,4 @@
 - name: download bgruening/docker-galaxy-stable
   git:
     repo: "https://github.com/bgruening/docker-galaxy-stable.git"
-    dest:
-
-- name: download https://get.docker.com/rootless
-  get_url:
-    url: https://get.docker.com/rootless
-    dest: "/home/{{ docker_user }}/get-docker-rootless.sh"
-    owner: "{{ docker_user }}"
-    group: "{{ docker_user }}"
-    mode: 0770
-
-- name: run get-docker-rootless.sh
-  command: "sh /home/{{ docker_user }}/get-docker-rootless.sh"
-  args:
-    chdir: "/home/{{ docker_user }}/"
-  become_user: "{{ docker_user }}"
-  register: result
-
+    dest: "/home/{{ docker_user }}/"
