@@ -3,4 +3,4 @@
 - name: download bgruening/docker-galaxy-stable
   git:
     repo: "https://github.com/bgruening/docker-galaxy-stable.git"
-    dest: "/home/{{ docker_user }}/"
+    dest: "/home/{{ docker_user }}/docker-galaxy-stable"
