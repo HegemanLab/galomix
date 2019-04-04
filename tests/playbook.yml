@@ -3,5 +3,6 @@
   remote_user: root
   roles:
     - role: geerlingguy.docker
-      when: docker == "standard"
     - role: galomix
+  vars:
+    - docker: standard

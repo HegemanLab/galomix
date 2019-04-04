@@ -4,7 +4,9 @@
 # type of docker (standard or rootless)
 docker: rootless
 docker_user: galomix
-# travis-ci uses 65526 for the traivs group
+
+# docker_id: 65536
+# travis-ci reserves the first 88431 ids
 docker_id: 886432
 
 # repo of rootless docker install

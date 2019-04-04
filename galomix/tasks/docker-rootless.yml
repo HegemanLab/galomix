@@ -1,5 +1,31 @@
 ---
 
+- name: apt install packages for SNI verification
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - python-pip
+      - python-openssl
+      - python-pyasn1
+
+- name: pip install package for SNI verification
+  pip:
+    name: ndg-httpsclient
+    state: latest
+
+- name: set docker users subuid range
+  lineinfile:
+    path: /etc/subuid
+    state: present
+    line: "{{ docker_user }}:{{ docker_id }}:65536"
+
+- name: set docker users subgid range
+  lineinfile:
+    path: /etc/subgid
+    state: present
+    line: "{{ docker_user }}:{{ docker_id }}:65536"
 - name: install rootless dependencies
   apt:
     name: "{{ packages }}"
@@ -23,8 +49,5 @@
   args:
     chdir: "/home/{{ docker_user }}/"
   become_user: "{{ docker_user }}"
-  register: result
 
-- name: print foo
-  debug:
-    var: result
+# at this point rootless files are in /home/{{ docker_user }}/bin
