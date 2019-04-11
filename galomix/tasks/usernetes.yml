@@ -15,18 +15,19 @@
     name: ndg-httpsclient
     state: latest
 
-- name: set docker users subuid range
+- name: set docker_user subuid range
   lineinfile:
     path: /etc/subuid
     state: present
     line: "{{ docker_user }}:{{ docker_id }}:65536"
 
-- name: set docker users subgid range
+- name: set docker_user subgid range
   lineinfile:
     path: /etc/subgid
     state: present
     line: "{{ docker_user }}:{{ docker_id }}:65536"
-- name: install rootless dependencies
+
+- name: install usernetes dependencies
   apt:
     name: "{{ packages }}"
     state: present
@@ -36,18 +37,11 @@
       - golang-go
       - uidmap
 
-- name: download https://get.docker.com/rootless
-  get_url:
-    url: https://get.docker.com/rootless
-    dest: "/home/{{ docker_user }}/get-docker-rootless.sh"
+- name: download usernetes
+  unarchive:
+    src: https://github.com/rootless-containers/usernetes/archive/v20190212.0.tar.gz
+    remote_src: yes
+    dest: "/home/{{ docker_user }}/usernetes"
     owner: "{{ docker_user }}"
     group: "{{ docker_user }}"
     mode: 0770
-
-- name: run get-docker-rootless.sh
-  command: "sh /home/{{ docker_user }}/get-docker-rootless.sh"
-  args:
-    chdir: "/home/{{ docker_user }}/"
-  become_user: "{{ docker_user }}"
-
-# at this point rootless files are in /home/{{ docker_user }}/bin
