@@ -6,8 +6,6 @@ python: 2.7.9
 env:
   - distribution: ubuntu
     version: xenial
-# - distribution: centos
-#   version: 7
 
 install:
   - pip install ansible

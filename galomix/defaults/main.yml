@@ -12,3 +12,6 @@ docker_id: 886432
 # repo of rootless docker install
 # rootless_repo: rootless-containers/rootlesskit
 rootless_repo: eschen42/rootlesskit
+
+usernetes_version: 20190212.0
+usernetes_type: binary
