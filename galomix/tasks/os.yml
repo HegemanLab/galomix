@@ -1,12 +1,22 @@
 ---
 # os task
 
-- name: update all packages
+- name: update cache
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+- name: apt-get update git latest
+  apt:
+    name: "git"
+    state: latest
+    force_apt_get: yes
+
+- name: apt-get update all pacakges
   apt:
     name: "*"
     state: latest
-    #force_apt_get: yes
-    update_cache: yes
+    force_apt_get: yes
 
 - name: install access control lists
   apt:
