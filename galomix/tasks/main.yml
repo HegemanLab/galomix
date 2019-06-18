@@ -3,6 +3,7 @@
 
 - name: configure base os
   include_tasks: os.yml
+  when: os_update
 
 - name: install docker standard
   include_role:
