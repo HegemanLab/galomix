@@ -4,5 +4,18 @@
 - name: configure base os
   include_tasks: os.yml
 
-- name: install usernetes
+- name: install docker standard
+  include_role:
+    name: geerlingguy.docker
+  when: docker == "standard"
+
+- name: install docker usernetes
   include_tasks: usernetes.yml
+  when: docker == "usernetes"
+
+- name: add docker user
+  include_tasks: user.yml
+
+- name: install docker galaxy stable
+  include_tasks: docker-galaxy-stable.yml
+  tags: "docker-galaxy-stable"

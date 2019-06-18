@@ -2,7 +2,6 @@
 - hosts: all
   remote_user: root
   roles:
-    - role: geerlingguy.docker
     - role: galomix
   vars:
     - docker: standard

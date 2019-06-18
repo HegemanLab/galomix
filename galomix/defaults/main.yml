@@ -1,13 +1,14 @@
 ---
 # defaults for galomix
 
-# type of docker (standard or rootless)
-docker: rootless
+# type of docker (standard or usernetes)
+docker: usernetes
 docker_user: galomix
+dgs_dir: "/home/{{ docker_user }}/docker-galaxy-stable"
 
 # docker_id: 65536
 # travis-ci reserves the first 88431 ids
-docker_id: 886432
+docker_id: "886432"
 
 # repo of rootless docker install
 # rootless_repo: rootless-containers/rootlesskit

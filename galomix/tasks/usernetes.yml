@@ -37,15 +37,7 @@
       - golang-go
       - uidmap
 
-- name: download usernetes source
-  unarchive:
-    src: "https://github.com/rootless-containers/usernetes/archive/v{{usernetes_version}}.tar.gz"
-    remote_src: yes
-    dest: "/home/{{ docker_user }}/"
-    owner: "{{ docker_user }}"
-    group: "{{ docker_user }}"
-    mode: 0770
-  when: usernetes_type == "source"
+# binary
 
 - name: download usernetes binary
   unarchive:
@@ -56,6 +48,18 @@
     group: "{{ docker_user }}"
     mode: 0770
   when: usernetes_type == "binary"
+
+# source
+
+- name: download usernetes source
+  unarchive:
+    src: "https://github.com/rootless-containers/usernetes/archive/v{{usernetes_version}}.tar.gz"
+    remote_src: yes
+    dest: "/home/{{ docker_user }}/"
+    owner: "{{ docker_user }}"
+    group: "{{ docker_user }}"
+    mode: 0770
+  when: usernetes_type == "source"
 
 - name: create ~/usernetes source sym link
   file:

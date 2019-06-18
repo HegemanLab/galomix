@@ -22,15 +22,3 @@
   apt:
     name: "acl"
     state: latest
-
-- name: add docker group
-  group:
-    name: "{{ docker_user }}"
-    gid: "{{ docker_id }}"
-
-- name: add docker users
-  user:
-    name: "{{ docker_user }}"
-    uid: "{{ docker_id }}"
-    group: "{{ docker_id }}"
-    groups: docker

@@ -1,0 +1,36 @@
+---
+
+- name: download bgruening/docker-galaxy-stable
+  git:
+    repo: "https://github.com/bgruening/docker-galaxy-stable.git"
+    dest: "{{ dgs_dir }}"
+  become_user: "{{ docker_user }}"
+
+- name: run build-orchestration-images.sh
+  command: "./build-orchestration-images.sh --no-push --condor --grafana --slurm --k8s"
+  args:
+    chdir: "{{ dgs_dir }}/compose"
+  become_user: "{{ docker_user }}"
+
+- name: get dgs env variables
+  command: "sed 's/export //g' {{ dgs_dir }}/compose/tags-for-compose-to-source.sh"
+  register: dgs_env
+
+- name: add dgs env variables to /etc/environment
+  lineinfile:
+    line: "{{ item }}"
+    path: "/etc/environment"
+  with_items: "{{ dgs_env.stdout_lines }}"
+
+- name: link .env
+  file:
+    src: "{{ dgs_dir }}/compose/.env_htcondor_docker"
+    dest: "{{ dgs_dir }}/compose/.env"
+    state: link
+  become_user: "{{ docker_user }}"
+
+- name: docker-compose up -d
+  command: "docker-compose up -d"
+  args:
+    chdir: "{{ dgs_dir }}/compose"
+  become_user: "{{ docker_user }}"
