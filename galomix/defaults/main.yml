@@ -10,6 +10,8 @@ dgs_dir: "/home/{{ docker_user }}/docker-galaxy-stable"
 # travis-ci reserves the first 88431 ids
 docker_id: "886432"
 
+os_update: true
+
 # repo of rootless docker install
 # rootless_repo: rootless-containers/rootlesskit
 rootless_repo: eschen42/rootlesskit
