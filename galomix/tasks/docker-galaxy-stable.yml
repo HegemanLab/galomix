@@ -4,6 +4,7 @@
   git:
     repo: "https://github.com/bgruening/docker-galaxy-stable.git"
     dest: "{{ dgs_dir }}"
+    version: "{{ dgs_branch }}"
   become_user: "{{ docker_user }}"
 
 - name: run build-orchestration-images.sh
@@ -11,6 +12,14 @@
   args:
     chdir: "{{ dgs_dir }}/compose"
   become_user: "{{ docker_user }}"
+  when: no_build is false
+
+- name: run build-orchestration-images.sh
+  command: "./build-orchestration-images.sh --no-build --condor --grafana --slurm"
+  args:
+    chdir: "{{ dgs_dir }}/compose"
+  become_user: "{{ docker_user }}"
+  when: no_build is true
 
 - name: get dgs env variables
   command: "sed 's/export //g' {{ dgs_dir }}/compose/tags-for-compose-to-source.sh"

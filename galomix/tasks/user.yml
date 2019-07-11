@@ -10,3 +10,4 @@
     uid: "{{ docker_id }}"
     group: "{{ docker_id }}"
     groups: docker
+    shell: /bin/bash

@@ -9,3 +9,12 @@ Included with Galomix are Galaxy configurations for running a metabolomics lab a
 ## Container Management
 
 [Usernetes](https://github.com/rootless-containers/usernetes) is Galomix' default container management system. Kubernetes can be used instead. The advantage of Usernetes is that it can run containers without root privilege. An [overview of Usernetes](https://fosdem.org/2019/schedule/event/containers_k8s_rootless/) was presented at FOSDEM 2019.
+
+## Vagrant
+
+Galomix can be installed ot a virtual machine with the included [Vagrantfile](Vagrantfile).
+
+```bash
+vagrant up --provision
+```
+galomix is developed with 

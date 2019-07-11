@@ -5,6 +5,7 @@
 docker: usernetes
 docker_user: galomix
 dgs_dir: "/home/{{ docker_user }}/docker-galaxy-stable"
+dgs_branch: master
 
 # docker_id: 65536
 # travis-ci reserves the first 88431 ids
@@ -18,3 +19,6 @@ rootless_repo: eschen42/rootlesskit
 
 usernetes_version: 20190212.0
 usernetes_type: binary
+
+# sets if docker-galaxy-stable compose will build or pull images
+no_build: false

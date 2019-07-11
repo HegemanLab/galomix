@@ -5,3 +5,4 @@
     - role: galomix
   vars:
     - docker: standard
+    - dgs_branch: dev
