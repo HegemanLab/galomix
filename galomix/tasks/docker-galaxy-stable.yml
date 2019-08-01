@@ -7,19 +7,19 @@
     version: "{{ dgs_branch }}"
   become_user: "{{ docker_user }}"
 
-- name: run build-orchestration-images.sh
+- name: build dgs-compose images
   command: "./build-orchestration-images.sh --no-push --condor --grafana --slurm --k8s"
   args:
     chdir: "{{ dgs_dir }}/compose"
   become_user: "{{ docker_user }}"
-  when: no_build is false
+  when: not no_build
 
-- name: run build-orchestration-images.sh
+- name: pull dgs-compose images
   command: "./build-orchestration-images.sh --no-build --condor --grafana --slurm"
   args:
     chdir: "{{ dgs_dir }}/compose"
   become_user: "{{ docker_user }}"
-  when: no_build is true
+  when: no_build
 
 - name: get dgs env variables
   command: "sed 's/export //g' {{ dgs_dir }}/compose/tags-for-compose-to-source.sh"
