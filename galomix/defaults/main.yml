@@ -9,7 +9,7 @@ dgs_branch: master
 
 # docker_id: 65536
 # travis-ci reserves the first 88431 ids
-docker_id: "886432"
+docker_id: "1450"
 
 os_update: true
 

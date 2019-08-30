@@ -2,11 +2,11 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/disco64"
+  config.vm.box = "generic/ubuntu1804"
 
-  config.vm.network "forwarded_port", guest: 8080, host: 8181, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
 
-  config.vm.provider "virtualbox" do |v|
+  config.vm.provider "libvirt" do |v|
     v.memory = 2046
   end
 

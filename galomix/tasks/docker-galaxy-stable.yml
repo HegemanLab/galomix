@@ -1,5 +1,13 @@
 ---
 
+- name: create the /export directory
+  file:
+    path: /export
+    state: directory
+    recurse: yes
+    owner: "{{ docker_user }}"
+    group: "{{ docker_user }}"
+
 - name: download bgruening/docker-galaxy-stable
   git:
     repo: "https://github.com/bgruening/docker-galaxy-stable.git"
@@ -33,7 +41,7 @@
 
 - name: link .env
   file:
-    src: "{{ dgs_dir }}/compose/.env_htcondor_docker"
+    src: "{{ dgs_dir }}/compose/.env_slurm"
     dest: "{{ dgs_dir }}/compose/.env"
     state: link
   become_user: "{{ docker_user }}"
